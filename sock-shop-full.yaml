@@ -658,8 +658,6 @@ spec:
               - SETGID
               - SETUID
           readOnlyRootFilesystem: true
-      nodeSelector:
-        beta.kubernetes.io/os: linux
 ---
 apiVersion: v1 # Service - session-db
 kind: Service
