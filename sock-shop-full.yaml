@@ -3,6 +3,7 @@ apiVersion: v1 # Namespace
 kind: Namespace
 metadata:
   name: sock-shop
+
 ---
 apiVersion: apps/v1 # Deployment - Carts
 kind: Deployment
@@ -637,6 +638,9 @@ spec:
         name: session-db
     spec:
       containers:
+      - name: redis-exporter
+        securityContext:
+          allowPrivilegeEscalation: false
       - name: session-db
         image: redis:alpine
         resources:
@@ -652,12 +656,13 @@ spec:
         securityContext:
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - CHOWN
-              - SETGID
-              - SETUID
+            - CHOWN
+            - SETGID
+            - SETUID
           readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
       nodeSelector:
         beta.kubernetes.io/os: linux
 ---
