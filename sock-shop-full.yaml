@@ -3,6 +3,7 @@ apiVersion: v1 # Namespace
 kind: Namespace
 metadata:
   name: sock-shop
+
 ---
 apiVersion: apps/v1 # Deployment - Carts
 kind: Deployment
@@ -227,13 +228,15 @@ spec:
             cpu: 100m
             memory: 200Mi
         env:
-          - name: MYSQL_ROOT_PASSWORD
-            value: fake_password
-          - name: MYSQL_DATABASE
-            value: socksdb
+        - name: MYSQL_ROOT_PASSWORD
+          value: fake_password
+        - name: MYSQL_DATABASE
+          value: socksdb
         ports:
         - name: mysql
           containerPort: 3306
+        securityContext:
+          allowPrivilegeEscalation: false
 ---
 apiVersion: v1 # Service - catalogue-db
 kind: Service
