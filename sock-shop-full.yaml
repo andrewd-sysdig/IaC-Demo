@@ -3,6 +3,7 @@ apiVersion: v1 # Namespace
 kind: Namespace
 metadata:
   name: sock-shop
+
 ---
 apiVersion: apps/v1 # Deployment - Carts
 kind: Deployment
@@ -101,19 +102,20 @@ spec:
         securityContext:
           capabilities:
             drop:
-              - all
+            - all
             add:
-              - CHOWN
-              - SETGID
-              - SETUID
+            - CHOWN
+            - SETGID
+            - SETUID
           readOnlyRootFilesystem: true
+          runAsUser: 1000
         volumeMounts:
         - mountPath: /tmp
           name: tmp-volume
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
 ---
 apiVersion: v1 # Service carts-db
 kind: Service
