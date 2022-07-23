@@ -3,6 +3,7 @@ apiVersion: v1 # Namespace
 kind: Namespace
 metadata:
   name: sock-shop
+
 ---
 apiVersion: apps/v1 # Deployment - Carts
 kind: Deployment
@@ -637,27 +638,28 @@ spec:
         name: session-db
     spec:
       containers:
-        - name: session-db
-          image: redis:alpine
-          resources:
-            limits:
-              cpu: 300m
-              memory: 500Mi
-            requests:
-              cpu: 100m
-              memory: 20Mi
-          ports:
-            - name: redis
-              containerPort: 6379
-          securityContext:
-            capabilities:
-              drop:
-                - all
-              add:
-                - CHOWN
-                - SETGID
-                - SETUID
-            readOnlyRootFilesystem: true
+      - name: session-db
+        image: redis:alpine
+        resources:
+          limits:
+            cpu: 300m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 20Mi
+        ports:
+        - name: redis
+          containerPort: 6379
+        securityContext:
+          capabilities:
+            drop:
+            - all
+            add:
+            - CHOWN
+            - SETGID
+            - SETUID
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
       nodeSelector:
         beta.kubernetes.io/os: linux
 ---
