@@ -3,6 +3,7 @@ apiVersion: v1 # Namespace
 kind: Namespace
 metadata:
   name: sock-shop
+
 ---
 apiVersion: apps/v1 # Deployment - Carts
 kind: Deployment
@@ -895,21 +896,23 @@ spec:
         name: load-gen
     spec:
       containers:
-        - name: load-gen
-          image: weaveworksdemos/load-test
-          args:
-            - "-d"
-            - "60" # Wait time
-            - "-h"
-            - "front-end"
-            - "-c"
-            - "1" # Number of clients
-            - "-r"
-            - "1000000" # Number of requests
-          resources:
-            limits:
-              cpu: 300m
-              memory: 200Mi
-            requests:
-              cpu: 100m
-              memory: 50Mi
+      - name: load-gen
+        image: weaveworksdemos/load-test
+        args:
+        - "-d"
+        - "60" # Wait time
+        - "-h"
+        - "front-end"
+        - "-c"
+        - "1" # Number of clients
+        - "-r"
+        - "1000000" # Number of requests
+        resources:
+          limits:
+            cpu: 300m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+        securityContext:
+          allowPrivilegeEscalation: false
