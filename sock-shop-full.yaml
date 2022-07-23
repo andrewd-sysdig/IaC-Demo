@@ -403,34 +403,35 @@ spec:
         name: orders-db
     spec:
       containers:
-        - name: orders-db
-          image: mongo
-          resources:
-            limits:
-              cpu: 300m
-              memory: 500Mi
-            requests:
-              cpu: 100m
-              memory: 150Mi
-          ports:
-            - name: mongo
-              containerPort: 27017
-          securityContext:
-            capabilities:
-              drop:
-                - all
-              add:
-                - CHOWN
-                - SETGID
-                - SETUID
-            readOnlyRootFilesystem: true
-          volumeMounts:
-            - mountPath: /tmp
-              name: tmp-volume
+      - name: orders-db
+        image: mongo
+        resources:
+          limits:
+            cpu: 300m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 150Mi
+        ports:
+        - name: mongo
+          containerPort: 27017
+        securityContext:
+          capabilities:
+            drop:
+            - all
+            add:
+            - CHOWN
+            - SETGID
+            - SETUID
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp-volume
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+      - name: tmp-volume
+        emptyDir:
+          medium: Memory
 ---
 apiVersion: v1 # Service - orders-db
 kind: Service
