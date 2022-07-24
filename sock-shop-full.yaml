@@ -5,6 +5,7 @@ metadata:
   name: sock-shop
 
 
+
 ---
 apiVersion: apps/v1 # Deployment - Carts
 kind: Deployment
@@ -236,6 +237,8 @@ spec:
         ports:
         - name: mysql
           containerPort: 3306
+        securityContext:
+          allowPrivilegeEscalation: false
 ---
 apiVersion: v1 # Service - catalogue-db
 kind: Service
