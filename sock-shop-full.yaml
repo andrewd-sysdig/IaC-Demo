@@ -6,6 +6,7 @@ metadata:
 
 
 
+
 ---
 apiVersion: apps/v1 # Deployment - Carts
 kind: Deployment
@@ -545,6 +546,8 @@ spec:
             memory: 300Mi
         ports:
         - containerPort: 80
+        securityContext:
+          allowPrivilegeEscalation: false
 ---
 apiVersion: v1 # Service - queue-master
 kind: Service
