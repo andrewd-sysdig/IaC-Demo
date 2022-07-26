@@ -149,6 +149,7 @@ spec:
     metadata:
       labels:
         name: catalogue
+        name1: catalogue1
     spec:
       containers:
       - name: catalogue
